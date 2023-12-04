@@ -16,7 +16,7 @@ const SideBar = () => {
   };
 
   return (
-    <div>
+    <div className='main'>
       <img className="sidebar-logo" src={logo} alt="" />
       <div className="sidebar">
         <div className="sidebar-buttons">
@@ -70,7 +70,6 @@ const SideBar = () => {
               <span>|</span>Users
             </h3>
           </Link>
-    
         </div>
       </div>
     </div>

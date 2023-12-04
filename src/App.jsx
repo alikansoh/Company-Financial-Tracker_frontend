@@ -14,6 +14,7 @@ const App = () => {
       <>
         <NavBar />
         <SideBar />
+        <Outlet />
       </>
     );
   };
@@ -22,7 +23,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/Dashboard" element={<Dashboard />} />
           <Route path="/Transactions" element={<Transactions />} />
           <Route path="/Reports" element={<Reports />} />
           <Route path="/Goals" element={<Goals />} />

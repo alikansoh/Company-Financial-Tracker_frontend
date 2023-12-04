@@ -1,36 +1,69 @@
-import react from 'react'
+import React, { useEffect, useState } from 'react'
 import '../Users/Users.css';
 import axios from 'axios';
+import prev from '../Users/prev.png';
+import next from '../Users/next.png';
+import edit from '../Users/edit.png';
+import Delete from '../Users/delete.png';
+import profile from '../Users/profile.png';
+
+
+
+
 
 export default function Users() {
+    const [userData, setUserData]= useState([]);
+    
+    const fetchUser= async ()=>{
+        try{
+            const res = await axios.get("http://localhost:5173/api/users/user");
+            console.log(res.data)
+            setUserData(res.data);
+            // console.log(res);
+        }
+        catch(err){
+            console.log('wrong');
+        }
+    }
+    useEffect(()=>{
+        fetchUser();
+    },[])
 
-//  const handleSubmit = async (event) => {
-//     event.preventDefault();
-//     const userData = {
-//       name: event.target.elements.nameInput.value,
-//       email: event.target.elements.emailInput.value,
-//       password: event.target.elements.passwordInput.value,
-//       role:event.target.elements.roleButton
-//     };
-//     try {
-//       await axios.post('http://localhost:8080/api/users', userData);
-//       event.target.reset();
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   };
-//   return (
-//     <div className="User-container">
-//       <div className="User-h1">Users</div>
-//       <button type='submit' className="User-Add-button">Add User</button>
-//       <form onSubmit={handleSubmit} className="User-form">
-//         <label className='User-inputs-label' htmlFor="nameInput">User Name</label>
-//         <input type="text" id="nameInput" name='name' className='User-name-input'/>
-//         <label className='User-inputs-label' htmlFor="emailInput">Email</label>
-//         <input type="text" id="emailInput" name='email' className='User-email-input'/>
-//         <label className='User-inputs-label' htmlFor='password'>Password</label>
-//         <input type="text" id="passwordInput" name='password' className='User-password-input'/>
-//       </form>
-//     </div>
-//   );
+  return (
+    <div className='user-container'>
+    <div className="User">
+        <span className='user-title'>Users</span>
+        <button type='submit' className="User-Add-button">Add New User</button>
+    <div className="User-form">
+        <div>&nbsp;</div>
+    <table>
+        <thead>
+            <tr className='title'>
+                <th></th>
+                <th>Name</th>
+                <th>Role</th>
+                <th>&nbsp;&nbsp;</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+               
+                <tr>
+                <td><img src={profile} alt="" /></td>
+                <td>jana</td>
+                <td>admin</td>
+                <td><img src={Delete} alt="" /></td>
+                <td><img src={edit} alt="" /></td>
+                </tr> 
+            
+            </tbody>
+        </table>
+      </div>
+      <div className='user-skip'>
+      <img className="prev" src={prev} alt="" /> &nbsp;1 of 5 &nbsp;<img src={next} alt="" />
+        
+      </div>
+      </div>
+      </div>
+  );
 };
