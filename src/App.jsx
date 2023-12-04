@@ -1,13 +1,12 @@
-import react from 'react';
-import Dashboard from './pages/Dashboard/Dashboard';
+import Navbar from './components/NavBar/NavBar.jsx'
+const App = () => {
+ 
+ return (
+ <div className="container mt-5">
+    <Navbar/>
 
-export default function App() {
+ </div>
+ );
+};
 
-  return (
-    <>
-      <Dashboard />
-    </>
-  )
-}
-
-
+export default App;

@@ -1,0 +1,73 @@
+/* MyCalendar.css */
+.calendar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+   }
+   
+   .custom-button {
+    background-color: #421c5f;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+   }
+   
+   .custom-button:hover {
+    background-color: #8448ce;
+   }
+   
+   .custom-button.active {
+    background-color: #421c5f;
+   }
+   
+   .calendar-wrapper {
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: opacity 0.3s ease;
+    overflow: hidden;
+   }
+   
+   .calendar-top-bar {
+    height: 20px;
+    width: 100%;
+   }
+   
+   .react-calendar__navigation {
+    background-color: #421c5f;
+   }
+   
+   .react-calendar__navigation__label {
+    color: white;
+   }
+   
+   .react-calendar__navigation__prev-button,
+   .react-calendar__navigation__next-button {
+    color: white;
+   }
+   
+   .react-calendar__navigation__prev-button:hover,
+   .react-calendar__navigation__next-button:hover,
+   .react-calendar__navigation__label:hover {
+    background-color: #8448ce;
+   }
+   
+   .react-calendar__tile {
+    border-top: none;
+   }
+   
+   .react-calendar__tile:hover {
+    background-color: #8448ce;
+   }
+   
+   .react-calendar__tile--now {
+    background: #8448ce;
+    color: white;
+   }
+   
