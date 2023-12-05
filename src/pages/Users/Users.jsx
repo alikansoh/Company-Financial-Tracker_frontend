@@ -7,17 +7,13 @@ import edit from '../Users/edit.png';
 import Delete from '../Users/delete.png';
 import profile from '../Users/profile.png';
 
-
-
-
-
 export default function Users() {
     const [userData, setUserData]= useState([]);
     
     const fetchUser= async ()=>{
         try{
             const res = await axios.get("http://localhost:5173/api/users/user");
-            console.log(res.data)
+            console.log(res.data);
             setUserData(res.data);
             // console.log(res);
         }
@@ -36,7 +32,7 @@ export default function Users() {
         <button type='submit' className="User-Add-button">Add New User</button>
     <div className="User-form">
         <div>&nbsp;</div>
-    <table>
+    <table className='user-table'>
         <thead>
             <tr className='title'>
                 <th></th>
@@ -49,18 +45,18 @@ export default function Users() {
         <tbody>
                
                 <tr>
-                <td><img src={profile} alt="" /></td>
+                <td><img className='user-img' src={profile} alt="" /></td>
                 <td>jana</td>
                 <td>admin</td>
-                <td><img src={Delete} alt="" /></td>
-                <td><img src={edit} alt="" /></td>
+                <td><img className='user-img' src={Delete} alt="" /></td>
+                <td><img className='user-img' src={edit} alt="" /></td>
                 </tr> 
             
             </tbody>
         </table>
       </div>
       <div className='user-skip'>
-      <img className="prev" src={prev} alt="" /> &nbsp;1 of 5 &nbsp;<img src={next} alt="" />
+      <img id='prev' className='user-img' src={prev} alt="" /> &nbsp;1 of 5 &nbsp;<img className='user-img' src={next} alt="" />
         
       </div>
       </div>
