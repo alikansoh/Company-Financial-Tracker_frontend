@@ -1,22 +1,96 @@
-.dateCard {
-    background-color: #421c5f;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    color: white;
-    border-radius: 10px;
-    width: 500px; /* Use percentage for width */
-    height: auto; /* Adjust height automatically */
-    text-align: center;
-   }
-   
-   .container {
+.mainNav {
     display: flex;
-    justify-content: center; /* Center the div horizontally */
-    align-items: center; /* Center the div vertically */
-   }
+    width: 80%;
+    right: 0;
+    position: fixed;
+    padding-right: 50px;
+    background-color: whitesmoke;
+ 
+}
+.welcomeUsername{
+color: #421c5f;
+}
+.welcomeBack{
+color: #9B9898;
+}
+
+
+.profile{
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+.bi-bell-fill{
+   font-size: 50px;
+   color: #421c5f;
+}
    
-   .dateCard:hover {
-    background-color: #8448ce;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-   }
-   
+.bi-person-circle{
+    font-size: 70px;
+    color: #421c5f;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.profileName{
+    color: #421c5f;
+}
+/* .dropdown-list{
+    overflow: scroll;
+} */
+.bi-caret-down-fill{
+    font-size: 50px;
+    color: #421c5f;
+    border:0;
+    
+
+}
+
+
+/* on hover */
+.welcomeUsername:hover{
+    transition: color 0.3s ease;
+    color:#8448ce;
+}
+
+.bi-bell-fill:hover{
+    transition: color 0.3s ease;
+    color:#8448ce;
+}
+
+
+.bi-person-circle:hover{
+    transition: color 0.3s ease;
+    color:#8448ce;
+}
+
+
+
+.profileName:hover{
+    transition: color 0.3s ease;
+    color:#8448ce;
+}
+
+
+
+.bi-caret-down-fill:hover{
+    transition: color 0.3s ease;
+    color:#8448ce;
+}
+
+li{
+    color: #421c5f;
+}
+.option1:hover{
+    transition: background-color 0.3s ease;
+    background-color:rgb(232, 232, 232) ;
+}
+
+.option2:hover{
+    transition: background-color 0.3s ease;
+    background-color:rgb(232, 232, 232) ;
+}
+.option3:hover{ 
+    transition: background-color 0.3s ease;
+    background-color:rgb(232, 232, 232) ;
+ }

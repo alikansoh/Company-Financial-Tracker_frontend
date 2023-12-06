@@ -1,6 +1,6 @@
-import  { useState } from 'react';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Login from './pages/Login/Login';
+import Navbar from './components/NavBar/NavBar.jsx'
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
@@ -24,9 +24,14 @@ export default function App() {
 
           <Route
             path="/dashboard"
-            element={<PrivateRoute element={<Dashboard />} />}
+            element={<PrivateRoute element={<Dashboard />
+          } />}
           />
+          
+              
         </Routes>
+        <Navbar />
+
       </Router>
     </>
   );

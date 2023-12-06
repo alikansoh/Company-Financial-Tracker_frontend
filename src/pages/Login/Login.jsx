@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import imageLogin from "../../images/img.jpg";
 import "./Login.css";
 
+
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -16,7 +17,7 @@ export default function Login() {
   }
 
   async function handleSubmit(event) {
-    event.preventDefault();
+    event.preventDefault(); 
 
     try {
       setLoading(true);
@@ -29,7 +30,12 @@ export default function Login() {
       );
 
       const token = response.data.token;
-      localStorage.setItem("token", token);
+
+      // Wait for the token to be set in local storage
+      await new Promise((resolve) => {
+        localStorage.setItem("token", token);
+        resolve();
+      });
 
       navigate("/dashboard");
     } catch (error) {
@@ -44,6 +50,7 @@ export default function Login() {
       setLoading(false);
     }
   }
+
 
   return (
     <div className="login-container">
