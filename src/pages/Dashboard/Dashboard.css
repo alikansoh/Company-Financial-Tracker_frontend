@@ -1,0 +1,56 @@
+.mainDashboard{
+    width: 100%;
+    height: 100vh;
+    background-color: black;
+
+}
+
+.mainFeatures{
+    width: 70%;
+    background-color: darkblue ;
+}
+
+.functionsMain{
+    height: 15vh;
+    background-color:  violet;
+
+}
+
+.myBalanceFunction {
+    width: 30%;
+    background-color: aqua;
+}
+
+.incomeFunction {
+    width: 30%;
+    background-color: aqua;
+
+}
+
+.expenseFunction{
+    width: 30%;
+    background-color: aqua;
+
+}
+
+
+
+
+.graphsMain{
+    height: 45vh;
+    background-color: red;
+
+}
+
+.recentUsersMain{
+    height: 25vh;
+    background-color:yellow ;
+
+
+}
+
+.mainGoals{
+    width: 30%;
+    background-color: green;
+
+}

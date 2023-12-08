@@ -1,3 +1,104 @@
-.nav-bar-header{
-    background-color: red;
+.mainNav {
+    display: flex;
+    cursor: pointer;
+    height: 20vh;
 }
+.welcomeUsername{
+color: #421c5f;
+font-size: 40px;
+}
+.welcomeBack{
+color: #9B9898;
+font-size: 30px;
+
+}
+.profile{
+    display: flex;
+    align-items: center;
+}
+.bi-bell-fill{
+   font-size: 40px;
+   color: #421c5f;
+}
+.bi-person-circle{
+    font-size: 50px;
+    color: #421c5f;
+    margin-left: 20px;
+}
+.profileName{
+    color: #421c5f;
+}
+.bi-caret-down-fill{
+    font-size: 50px;
+    color: #421c5f;
+    border:0;
+    background-color:transparent;
+}
+.dropdown-list{
+    /* border: none; */
+    font-size: 30px;
+    font-weight: bold;
+
+
+}
+.option1{
+    color: #421c5f;
+}
+.option2{
+    color: #421c5f;
+}
+.option3{
+    color: #421c5f;
+}   
+
+/* on hover */
+.welcomeUsername:hover{
+    transition: color 0.3s ease;
+    color:#8448ce;
+}
+
+.bi-bell-fill:hover{
+    transition: color 0.3s ease;
+    color:#8448ce;
+}
+
+
+.bi-person-circle:hover{
+    transition: color 0.3s ease;
+    color:#8448ce;
+}
+
+
+
+.profileName:hover{
+    transition: color 0.3s ease;
+    color:#8448ce;
+}
+
+
+
+.bi-caret-down-fill:hover{
+    transition: color 0.3s ease;
+    color:#8448ce;
+    border-radius: 0; 
+}
+
+
+.option1:hover{
+    transition: color 0.3s ease;
+    color: #8448ce;
+
+}
+
+.option2:hover{
+    transition: color 0.3s ease;
+    color: #8448ce;
+}
+.option3:hover{ 
+    transition: color 0.3s ease;
+    color: #8448ce;
+ }
+
+ /* on clicked */
+
+
