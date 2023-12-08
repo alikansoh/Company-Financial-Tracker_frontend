@@ -1,3 +1,4 @@
+
 //importing libraries
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom'
@@ -6,16 +7,23 @@ import axios from 'axios';
 import './Goals.css';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-  import Delete from'../Goals/delete.png';
-  import edit from '../Goals/edit.png';
-  import calendar from '../Goals/calendar.png'
+import Delete from '../Users/delete.png';
+import edit from '../Users/edit.png';
+import calendar from '../Goals/calendar.png'
+import GoalsPagination from '../Transactions/Paginagion';
+
+
+
 //importing libraries
+
 
 export default function Goals() {
   //intializing useStates
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [goalToDelete, setGoalToDelete] = useState(null);
   const [goalData, setGoalData] = useState([]);
+  const itemsPerPage = 6; 
+  const totalPages = Math.ceil(goalData.length / itemsPerPage);
   const [showModal, setShowModal] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showUpdateForm, setShowUpdateForm] = useState(false);
@@ -25,46 +33,36 @@ export default function Goals() {
   const [endDate, setEndDate] = useState('');
   const [type, setType] = useState('');
   const [goalToUpdate, setGoalToUpdate] = useState(null);
-  const { id: goalId } = useParams();
-  console.log(goalId)
+  const [currentPage, setCurrentPage] = useState(1);
+  const [refreshPage, setRefreshPage] = useState(false);
   //intializing useStates
 
-  const isDuplicateGoalName = (nameToCheck) => {
-    return goalData.some((goal) => goal.name === nameToCheck);
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
   };
 
-  const isEndDateBeforeStartDate = () => {
-    const startDateObj = new Date(startDate);
-    const endDateObj = new Date(endDate);
+  const paginatedGoals = goalData.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  const isDuplicateGoalName = (nameToCheck, currentGoalId) => {
+    return goalData.some((goal) => goal.name === nameToCheck && goal.id !== currentGoalId);
+  };
   
-    return endDateObj < startDateObj;
-  };
 
-  const resetFormFields = () => {
-    setName('');
-    setTarget(0);
-    setStartDate('');
-    setEndDate('');
-    setType('');
-  };
-
-  
+  const dateChecker = (startDate, endDate) => {
+    if(startDate < endDate) 
+    return
+  }
   //posting goal
   const addGoal = async (e) => {
     e.preventDefault();
     try {
-      // Check for duplicate goal name
-      if (isDuplicateGoalName(name)) {
-        alert( 'Duplicate goal name');
-        return;
-      }
-      if (isEndDateBeforeStartDate()) {
-        alert('Error: End date cannot be before start date');
-        return;
-      }
-  
+      console.log('State Values:', { name, target, startDate, endDate, type });
+
       const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwMTU1ODAwOCwiZXhwIjoxNzA0MTUwMDA4fQ.sGRHYaRreOUSbAuyGHqBcZUcbt1Su1Ogxv6PooQ0tnc';
-  
+
       const response = await axios.post(
         'http://localhost:4000/api/goals/goal',
         {
@@ -80,12 +78,17 @@ export default function Goals() {
           },
         }
       );
-  
+
       if (response.status === 200) {
         // Assuming response.data contains the newly added goal
         setGoalData((prevGoals) => [...prevGoals, response.data]);
-        resetFormFields();
+        setName('');
+        setTarget(0);
+        setStartDate('');
+        setEndDate('');
+        setType('');
         handleShowSuccessModal();
+
       }
     } catch (error) {
       console.error(error);
@@ -94,69 +97,79 @@ export default function Goals() {
     //posting goal
 
   //updating goal
-  // Function to handle the update of an existing goal
-const updateGoal = async (e) => {
-  e.preventDefault();
+  const updateGoal = async (e) => {
+    e.preventDefault();
 
-  try {
-    // Check for duplicate goal name
-    if (isDuplicateGoalName(name) && name !== goalToUpdate.name) {
-      alert('Duplicate goal name');
-      return;
-    }
-    if (isEndDateBeforeStartDate()) {
-      alert('Error: End date cannot be before start date');
-      return;
-    }
-
-    const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwMTU1ODAwOCwiZXhwIjoxNzA0MTUwMDA4fQ.sGRHYaRreOUSbAuyGHqBcZUcbt1Su1Ogxv6PooQ0tnc';
-
-    const response = await axios.patch(
-      `http://localhost:4000/api/goals/goal/${goalToUpdate}`,
-      {
-        name,
-        target: parseInt(target),
-        startDate,
-        endDate,
-        type,
-      },
-      {
-        headers: {
-          'Authorization': `Bearer ${authToken}`,
-        },
+    try {
+      if (!goalToUpdate) {
+        console.error('Error: Goal ID is not defined.');
+        return;
       }
-    );
+      if (isDuplicateGoalName(name, goalToUpdate) && name !== goalToUpdate.name) {
+        alert('Duplicate goal name');
+        return;
+      }
 
-    if (response.status === 200) {
-      // Assuming response.data contains the updated goal
-      const updatedGoal = response.data;
+      if (startDate >= endDate) {
+        alert('End date should be greater than start date');
+        return;
+      }
+      console.log('State Values:', { name, target, startDate, endDate, type });
 
-      // Update the existing goal in the array
-      setGoalData((prevGoals) =>
-        prevGoals.map((goal) =>
-          goal.id === updatedGoal.id ? updatedGoal : goal
-        )
+      const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwMTU1ODAwOCwiZXhwIjoxNzA0MTUwMDA4fQ.sGRHYaRreOUSbAuyGHqBcZUcbt1Su1Ogxv6PooQ0tnc';
+
+      const response = await axios.patch(
+        `http://localhost:4000/api/goals/goal/${goalToUpdate}`,
+        {
+          name,
+          target: parseInt(target),
+          startDate,
+          endDate,
+          type,
+        },
+        {
+          headers: {
+            'Authorization': `Bearer ${authToken}`,
+          },
+        }
       );
 
-      resetFormFields();
-      handleCloseUpdateForm();
-    }
-  } catch (error) {
-    console.error(error);
-  }
-};
+      if (response.status === 200) {
+        // Assuming response.data contains the updated goal
+        const updatedGoal = response.data;
 
-  
-  
+        // Update the existing goal in the array
+        setGoalData((prevGoals) =>
+          prevGoals.map((goal) =>
+            goal.id === updatedGoal.id ? updatedGoal : goal
+          )
+        );
+
+        setName('');
+        setTarget(0);
+        setStartDate('');
+        setEndDate('');
+        setType('');
+        handleCloseUpdateForm();
+        setRefreshPage(true);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
 //setting the vlue when the user presses on the pen in order to update the goal
   const handleUpdateClick = async (goalId) => {
     try {
       const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsInJvbGUiOiJtb3N0YWZhIiwiaWF0IjoxNzAxNjk1MTE5LCJleHAiOjE3MDQyODcxMTl9.SfCl8C1eWMPRkagT_i0QnNSwr-CWfxSoFB5uovG86Nk';
-      const response = await axios.get(`http://localhost:4000/api/goals/goal/${goalId}`, {
+      const response = await axios.get(`http://localhost:4000/api/goals/goal/${goalId}`, 
+      {
         headers: {
           'Authorization': `Bearer ${authToken}`
         }
-      });
+      }
+      );
 
       if (response.status === 200) {
         console.log(goalId)
@@ -178,9 +191,6 @@ const updateGoal = async (e) => {
     }
   };
   //setting the vlue when the user presses on the pen in order to update the goal
-
-
-
 
 //handeling the delete function
   const handleDeleteClick = (goalId) => {
@@ -217,22 +227,25 @@ const updateGoal = async (e) => {
 
   //setting boolean values for showing the modal
   const handleShowModal = () => setShowModal(true);
-  const handleCloseModal = () =>{ setShowModal(false); resetFormFields()};
+  const handleCloseModal = () => setShowModal(false);
   const handleShowSuccessModal = () => setShowSuccessModal(true);
   const handleCloseSuccessModal = () => setShowSuccessModal(false);
   const handleShowUpdateForm = () => setShowUpdateForm(true);
   const handleCloseUpdateForm = () => setShowUpdateForm(false);
   //setting boolean values for showing the modal
-  
+
 //Fetching the Goal Data
   useEffect(() => {
     const fetchData = async () => {
-      const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwMTU1ODAwOCwiZXhwIjoxNzA0MTUwMDA4fQ.sGRHYaRreOUSbAuyGHqBcZUcbt1Su1Ogxv6PooQ0tnc';       try {
-        const response = await axios.get('http://localhost:4000/api/goals/goal', {
+      const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwMTU1ODAwOCwiZXhwIjoxNzA0MTUwMDA4fQ.sGRHYaRreOUSbAuyGHqBcZUcbt1Su1Ogxv6PooQ0tnc';       
+      try {
+        const response = await axios.get('http://localhost:4000/api/goals/goal', 
+        {
           headers: {
             'Authorization': `Bearer ${authToken}`
           }
-        });
+        }
+        );
         console.log(response.data);
         setGoalData(response.data);
       } catch (error) {
@@ -241,46 +254,48 @@ const updateGoal = async (e) => {
     };
 
     fetchData();
-  }, []);
+  }, [refreshPage]);
   //Fetching the Goal Data
-
-
-  const Box = ({ goal, handleDeleteClick, handleUpdateClick }) => (
-    <div className="box" key={goal.id}>
+  
+  const Box = ({ goal,handleDeleteClick,handleUpdateClick}) => (
+    <div className="box">
       <h2>{goal.name}</h2>
-      <ul>
-        <li>{goal.target}</li>
-        <div className='goal-img'>
-          <img src={Delete} alt='' onClick={() => handleDeleteClick(goal.id)} />
-          <img src={edit} alt='' onClick={() => handleUpdateClick(goal.id)} />
-        </div>
-        <span className='goals-li'>{goal.startDate}</span>&nbsp;&nbsp;<img src={calendar} alt='' />&nbsp;&nbsp;<span className='goals-li'>{goal.endDate}</span>
+      <ul className='goals-ul'>
+        <li className='goals-li'>{goal.target}</li>
+        <div className='goal-img'><img className= 'delete'src={Delete} alt=''  onClick={() => handleDeleteClick(goal.id)}/><br/>
+        <img className='edit'src={edit} alt='' onClick={() => handleUpdateClick(goal.id)} /></div>
+        <span className='goals-span'>{goal.startDate}</span>&nbsp;&nbsp;<img src={calendar} alt='' />&nbsp;&nbsp;<span className='goals-span'>{goal.endDate}</span>
       </ul>
+      <GoalsPagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+            className="pagination-transactions" // Add your desired class name here
+          />
     </div>
   );
-  
-  // Assuming this is a part of a larger component
-  return (
-    <div>
-      <div className='goal-title'>Goals</div>
-      <div className="Add-Goal">
+
+  return (	    
+        <div><div className='goal-title'>Goals</div>
+        <div className="Add-Goal">
         <Button className="goal-button" variant="primary" onClick={handleShowModal}>
           Add Goal
         </Button>
       </div>
       <div className="goal-container">
-        <div className="goal-row">
-          {goalData.map((goal) => (
-            <Box
-              key={goal.id}
-              goal={goal}
-              handleDeleteClick={handleDeleteClick}
-              handleUpdateClick={handleUpdateClick}
-            />
-          ))}
+      <div className="goal-row">
+        {paginatedGoals.map((goal) =>(
+        <Box
+        key={goal.id}
+          goal={goal}
+          handleDeleteClick={handleDeleteClick}
+          handleUpdateClick={handleUpdateClick}
+        />
+        ))}
         
       </div>
     </div>
+      
 
 <Modal show={showModal} onHide={handleCloseModal}>
   <Modal.Header closeButton>
@@ -290,34 +305,34 @@ const updateGoal = async (e) => {
     <form onSubmit={addGoal}>
       <div className="form-group">
         <label htmlFor="goalName">Goal Name:</label>
-        <input type="text" className="form-control" id="goalName" required
+        <input type="text" className="form-control" id="goalName"
          placeholder="Enter goal name" value={name} onChange={(e) => setName(e.target.value)} />
       </div>
       <div className="form-group">
         <label htmlFor="target">Target:</label>
-        <input type="number" className="form-control" required
+        <input type="number" className="form-control" 
         id="target" placeholder="Enter target" value={target} onChange={(e) => setTarget(e.target.value)} />
       </div>
       <div className="form-group">
         <label htmlFor="startDate">Start Date:</label>
-        <input type="date" className="form-control" id="startDate" value={startDate} required
+        <input type="date" className="form-control" id="startDate" value={startDate}
         onChange={(e) => setStartDate(e.target.value)} />
       </div>
       <div className="form-group">
         <label htmlFor="endDate">End Date:</label>
-        <input type="date" className="form-control" id="endDate"value={endDate} required
+        <input type="date" className="form-control" id="endDate"value={endDate}
         onChange={(e) => setEndDate(e.target.value)} />
       </div>
       <div className="form-group">
         <label htmlFor="type">Type:</label>
-         <select className="form-control" id="type"required
-        value={type} onChange={(e) => setType(e.target.value)} placeholder='Choose Type'> 
+         <select className="form-control" id="type"
+        value={type} onChange={(e) => setType(e.target.value)} placeholder='Choose Type'>
           <option value="" disabled>Select Type</option>
           <option value="weekly">Weekly</option>
           <option value="monthly">Monthly</option>
           <option value="yearly">Yearly</option>
         </select> 
-        
+
       </div>
       <Modal.Footer>
     <Button variant="secondary" onClick={handleCloseModal}>
@@ -328,14 +343,10 @@ const updateGoal = async (e) => {
     </Button>
   </Modal.Footer>
     </form>
-    
+
   </Modal.Body>
- 
+
 </Modal>
-
-
-
-
       {confirmDelete && goalToDelete && (//Modal for confirmation deletion
         <Modal show={confirmDelete} onHide={handleCancelDelete}>
           <Modal.Header closeButton>
@@ -354,10 +365,8 @@ const updateGoal = async (e) => {
           </Modal.Footer>
         </Modal>
       //Modal for confirmation deletion
-
-
       )}
-      
+
       <Modal show={showSuccessModal} onHide={handleCloseSuccessModal}>
         <Modal.Header closeButton>
           <Modal.Title>Success</Modal.Title>
@@ -380,22 +389,22 @@ const updateGoal = async (e) => {
           <form onSubmit={updateGoal}>
           <div className="form-group">
         <label htmlFor="goalName">Goal Name:</label>
-        <input type="text" className="form-control" id="goalName" required
+        <input type="text" className="form-control" id="goalName"
          placeholder="Enter goal name" value={name} onChange={(e) => setName(e.target.value)} />
       </div>
       <div className="form-group">
         <label htmlFor="target">Target:</label>
-        <input type="number" className="form-control" required
+        <input type="number" className="form-control" 
         id="target" placeholder="Enter target" value={target} onChange={(e) => setTarget(e.target.value)} />
       </div>
       <div className="form-group">
         <label htmlFor="startDate">Start Date:</label>
-        <input type="date" className="form-control" id="startDate" value={startDate} required
+        <input type="date" className="form-control" id="startDate" value={startDate}
         onChange={(e) => setStartDate(e.target.value)} />
       </div>
       <div className="form-group">
         <label htmlFor="endDate">End Date:</label>
-        <input type="date" className="form-control" id="endDate"value={endDate} required
+        <input type="date" className="form-control" id="endDate"value={endDate}
         onChange={(e) => setEndDate(e.target.value)} />
       </div>
       <div className="form-group">
@@ -407,7 +416,7 @@ const updateGoal = async (e) => {
           <option value="monthly">Monthly</option>
           <option value="yearly">Yearly</option>
         </select> 
-        
+
       </div>
 
             <Modal.Footer>
@@ -424,4 +433,4 @@ const updateGoal = async (e) => {
 
     </div>
   );
-}
+}	  
