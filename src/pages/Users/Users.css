@@ -1,10 +1,10 @@
 .user-container{
     display:flex;
     align-items: center;
-    margin-left: 400px;
-    margin-top: -750px;
+    /* margin-left: 400px; */
     font-size: 33px;
-
+    flex-direction: column;
+    margin-top: 200px;
 }
 .User-form{
     background: 
@@ -14,21 +14,27 @@
     rgba(145, 182, 216, 0.00) 110.19%
     );
     border-radius: 20px;
+    align-items: center;
 }
-th, td {
+.user-table-header, .user-table-data {
     padding: 10px;
     text-align: center;
 }
-table {
+.user-table {
     width: 100%;
     border-collapse:collapse;
 
 }
+.user-table-body {
+    padding: 15px;
+    text-align: center;
+}
 .user-skip{
     display: flex;
     align-items: center;
-    margin-left: 400px;
+    position: relative;
     margin-top: 20px;
+    margin-left: 520px;
 }
 #prev{
     margin-top: 11px;
@@ -39,7 +45,8 @@ thead {
     border-radius: 20px;
     margin-top:20px ;
 }
-button{
+.User-Add-button{
+
     background-color: #442A5E;
     height:50px;
     width: 160px;
@@ -92,4 +99,3 @@ button{
     }
 
 }
-

@@ -40,7 +40,7 @@ export default function Goals() {
     try {
       console.log('State Values:', { name, target, startDate, endDate, type });
 
-      // const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwMTU1ODAwOCwiZXhwIjoxNzA0MTUwMDA4fQ.sGRHYaRreOUSbAuyGHqBcZUcbt1Su1Ogxv6PooQ0tnc';
+      const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwMTU1ODAwOCwiZXhwIjoxNzA0MTUwMDA4fQ.sGRHYaRreOUSbAuyGHqBcZUcbt1Su1Ogxv6PooQ0tnc';
 
       const response = await axios.post(
         'http://localhost:4000/api/goals/goal',
@@ -51,11 +51,11 @@ export default function Goals() {
           endDate,
           type,
         },
-        // {
-        //   headers: {
-        //     'Authorization': `Bearer ${authToken}`,
-        //   },
-        // }
+        {
+          headers: {
+            'Authorization': `Bearer ${authToken}`,
+          },
+        }
       );
 
       if (response.status === 200) {
@@ -87,7 +87,7 @@ export default function Goals() {
 
       console.log('State Values:', { name, target, startDate, endDate, type });
 
-      // const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwMTU1ODAwOCwiZXhwIjoxNzA0MTUwMDA4fQ.sGRHYaRreOUSbAuyGHqBcZUcbt1Su1Ogxv6PooQ0tnc';
+      const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwMTU1ODAwOCwiZXhwIjoxNzA0MTUwMDA4fQ.sGRHYaRreOUSbAuyGHqBcZUcbt1Su1Ogxv6PooQ0tnc';
 
       const response = await axios.patch(
         `http://localhost:4000/api/goals/goal/${goalToUpdate}`,
@@ -98,11 +98,11 @@ export default function Goals() {
           endDate,
           type,
         },
-        // {
-        //   headers: {
-        //     'Authorization': `Bearer ${authToken}`,
-        //   },
-        // }
+        {
+          headers: {
+            'Authorization': `Bearer ${authToken}`,
+          },
+        }
       );
 
       if (response.status === 200) {
@@ -132,13 +132,13 @@ export default function Goals() {
 //setting the vlue when the user presses on the pen in order to update the goal
   const handleUpdateClick = async (goalId) => {
     try {
-      // const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsInJvbGUiOiJtb3N0YWZhIiwiaWF0IjoxNzAxNjk1MTE5LCJleHAiOjE3MDQyODcxMTl9.SfCl8C1eWMPRkagT_i0QnNSwr-CWfxSoFB5uovG86Nk';
+      const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsInJvbGUiOiJtb3N0YWZhIiwiaWF0IjoxNzAxNjk1MTE5LCJleHAiOjE3MDQyODcxMTl9.SfCl8C1eWMPRkagT_i0QnNSwr-CWfxSoFB5uovG86Nk';
       const response = await axios.get(`http://localhost:4000/api/goals/goal/${goalId}`, 
-      // {
-      //   headers: {
-      //     'Authorization': `Bearer ${authToken}`
-      //   }
-      // }
+      {
+        headers: {
+          'Authorization': `Bearer ${authToken}`
+        }
+      }
       );
 
       if (response.status === 200) {
@@ -175,11 +175,11 @@ export default function Goals() {
 
   const handleConfirmDelete = async () => {
     try {
-      // const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwMTU1ODAwOCwiZXhwIjoxNzA0MTUwMDA4fQ.sGRHYaRreOUSbAuyGHqBcZUcbt1Su1Ogxv6PooQ0tnc'; 
+      const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwMTU1ODAwOCwiZXhwIjoxNzA0MTUwMDA4fQ.sGRHYaRreOUSbAuyGHqBcZUcbt1Su1Ogxv6PooQ0tnc'; 
       const response = await axios.delete(`http://localhost:4000/api/goals/goal/${goalToDelete}`, {
-        // headers: {
-        //   'Authorization': `Bearer ${authToken}`
-        // }
+        headers: {
+          'Authorization': `Bearer ${authToken}`
+        }
       });
 
       console.log('Delete Response:', response);
@@ -207,14 +207,14 @@ export default function Goals() {
 //Fetching the Goal Data
   useEffect(() => {
     const fetchData = async () => {
-      // const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwMTU1ODAwOCwiZXhwIjoxNzA0MTUwMDA4fQ.sGRHYaRreOUSbAuyGHqBcZUcbt1Su1Ogxv6PooQ0tnc';       
+      const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwMTU1ODAwOCwiZXhwIjoxNzA0MTUwMDA4fQ.sGRHYaRreOUSbAuyGHqBcZUcbt1Su1Ogxv6PooQ0tnc';       
       try {
         const response = await axios.get('http://localhost:4000/api/goals/goal', 
-        // {
-        //   headers: {
-        //     'Authorization': `Bearer ${authToken}`
-        //   }
-        // }
+        {
+          headers: {
+            'Authorization': `Bearer ${authToken}`
+          }
+        }
         );
         console.log(response.data);
         setGoalData(response.data);
@@ -230,11 +230,11 @@ export default function Goals() {
   const Box = ({ Goals, target, startDate, endDate}) => (
     <div className="box">
       <h2>{Goals}</h2>
-      <ul>
-        <li>{target}</li>
-        <div className='goal-img'><img src={Delete} alt='' />
-        <img src={edit} alt='' /></div>
-        <span className='goals-li'>{startDate}</span>&nbsp;&nbsp;<img src={calendar} alt='' />&nbsp;&nbsp;<span className='goals-li'>{endDate}</span>
+      <ul className='goals-ul'>
+        <li className='goals-li'>{target}</li>
+        <div className='goal-img'><img className= 'delete'src={Delete} alt='' /><br/>
+        <img className='edit'src={edit} alt='' /></div>
+        <span className='goals-span'>{startDate}</span>&nbsp;&nbsp;<img src={calendar} alt='' />&nbsp;&nbsp;<span className='goals-span'>{endDate}</span>
       </ul>
     </div>
   );

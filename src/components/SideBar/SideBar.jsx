@@ -25,50 +25,50 @@ const SideBar = () => {
             onClick={() => handleLinkClick(0)}
             className={selectedLink === 0 ? 'selected' : ''}
           >
-            <h3 className="dashboard">
+            <div className="dashboard">
             <img className="icon" src={iconD} alt="" />
               <span className='dash'>|</span><span className='sidebar-label'>Dashboard</span>
-            </h3>
+            </div>
           </Link>
           <Link
             to={"/Transactions"}
             onClick={() => handleLinkClick(1)}
             className={selectedLink === 1 ? 'selected' : ''}
           >
-            <h3 className="transactions">
+            <div className="transactions">
             <img className="icon" src={iconT} alt="" />
               <span className='dash'>|</span><span className='sidebar-label'>Transactions</span>
-            </h3>
+            </div>
           </Link>
           <Link
             to={"/Goals"}
             onClick={() => handleLinkClick(2)}
             className={selectedLink === 2 ? 'selected' : ''}
           >
-            <h3 className="Goals">
+            <div className="Goals">
             <img className="icon" src={iconG} alt="" />
               <span className='dash'>|</span><span className='sidebar-label'>Goals</span>
-            </h3>
+            </div>
           </Link>
           <Link
             to={"/Reports"}
             onClick={() => handleLinkClick(3)}
             className={selectedLink === 3 ? 'selected' : ''}
           >
-            <h3 className="Reports">
+            <div className="Reports">
             <img className="icon" src={iconR} alt="" />
               <span className='dash'>|</span><span className='sidebar-label'>Reports</span>
-            </h3>
+            </div>
           </Link>
           <Link
             to={"/Users"}
             onClick={() => handleLinkClick(4)}
             className={selectedLink === 4 ? 'selected' : ''}
           >
-            <h3 className="Users">
+            <div className="Users">
             <img className="icon" src={iconU} alt="" />
               <span className='dash'>|</span> <span className='sidebar-label'>Users</span>
-            </h3>
+            </div>
           </Link>
         </div>
       </div>
