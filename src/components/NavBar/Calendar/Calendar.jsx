@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React , { useState, useEffect } from 'react';
 import "./Calendar.css"
 
 const Calendar = () => {
@@ -12,22 +12,22 @@ const Calendar = () => {
             'May', 'June', 'July', 'August',
             'September', 'October', 'November', 'December'
           ];
-
+    
           const month = monthNames[date.getMonth()];
           const day = date.getDate();
           const year = date.getFullYear();
           const formattedDate = `${month} ${day}, ${year}`;
           setCurrentDate(formattedDate)
         };
-
+    
         getCurrentDate();
       }, []);
   return (
         <div className="calendar">
             <div className="bi bi-calendar2-event"></div>
-            <div className="timeAndDate"><h2> {currentDate} </h2></div>
+            <div className="timeAndDate"><p> {currentDate} </p></div>
         </div>
-
+    
         )
 }
 

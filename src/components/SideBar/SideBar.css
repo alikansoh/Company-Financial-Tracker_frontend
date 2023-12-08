@@ -48,14 +48,11 @@ h3 {
 @media only screen and (max-width: 1080px) {
     .sidebar{
         display: flex;
+        width: fit-content;
         height: fit-content;
     } 
     .sidebar-logo{
         margin-left: -40px;
     }  
-    .sidebar-label{
-        font-size: 20px;
-    }
-    
     
 }

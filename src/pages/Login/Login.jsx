@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import imageLogin from "../Login/img.jpg";
+import imageLogin from "../../images/img.jpg";
 import "./Login.css";
 
 export default function Login() {

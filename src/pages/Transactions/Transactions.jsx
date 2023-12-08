@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./Transactions.css";
-import addIcon from "../Transactions/add-icon.png";
+import addIcon from "../../images/add-icon.png";
 import { Pie } from "react-chartjs-2";
 import 'chart.js/auto';
 
-import TransactionsPagination from "../Transactions/paginagion.jsx";
+import TransactionsPagination from "./Paginagion";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 

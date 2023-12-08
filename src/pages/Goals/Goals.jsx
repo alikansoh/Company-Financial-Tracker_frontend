@@ -227,14 +227,14 @@ export default function Goals() {
   }, []);
   //Fetching the Goal Data
   
-  const Box = ({ Goals, target, startDate, endDate}) => (
+  const Box = ({ goal,handleDeleteClick,handleUpdateClick}) => (
     <div className="box">
-      <h2>{Goals}</h2>
+      <h2>{goal.name}</h2>
       <ul className='goals-ul'>
-        <li className='goals-li'>{target}</li>
-        <div className='goal-img'><img className= 'delete'src={Delete} alt='' /><br/>
-        <img className='edit'src={edit} alt='' /></div>
-        <span className='goals-span'>{startDate}</span>&nbsp;&nbsp;<img src={calendar} alt='' />&nbsp;&nbsp;<span className='goals-span'>{endDate}</span>
+        <li className='goals-li'>{goal.target}</li>
+        <div className='goal-img'><img className= 'delete'src={Delete} alt=''  onClick={() => handleDeleteClick(goal.id)}/><br/>
+        <img className='edit'src={edit} alt='' onClick={() => handleUpdateClick(goal.id)} /></div>
+        <span className='goals-span'>{goal.startDate}</span>&nbsp;&nbsp;<img src={calendar} alt='' />&nbsp;&nbsp;<span className='goals-span'>{goal.endDate}</span>
       </ul>
     </div>
   );
@@ -250,11 +250,10 @@ export default function Goals() {
       <div className="goal-row">
         {goalData.map((goal) =>(
         <Box
-          Goals={goal.name}
-          target={goal.target}
-          startDate={goal.startDate}
-          endDate={goal.endDate}
-         
+        key={goal.id}
+          goal={goal}
+          handleDeleteClick={handleDeleteClick}
+          handleUpdateClick={handleUpdateClick}
         />
         ))}
         
@@ -398,4 +397,4 @@ export default function Goals() {
 
     </div>
   );
-}	
+}	  
