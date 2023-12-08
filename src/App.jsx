@@ -14,11 +14,9 @@ const App = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-      // Check for the presence of the token here
       const authToken = localStorage.getItem('token');
 
       if (!authToken) {
-        // Redirect to the login page if no token is present
         navigate('/Login');
       }
     }, [navigate]);
@@ -43,7 +41,6 @@ const App = () => {
         <Route
           path="/"
           element={<Layout />}
-          // You can add additional guards or checks here if needed
         >
           <Route path="/Dashboard" element={<Dashboard />} />
           <Route path="/Transactions" element={<Transactions />} />

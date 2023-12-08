@@ -25,7 +25,7 @@ const Calendar = () => {
   return (
         <div className="calendar">
             <div className="bi bi-calendar2-event"></div>
-            <div className="timeAndDate"><h2> {currentDate} </h2></div>
+            <div className="timeAndDate"><p> {currentDate} </p></div>
         </div>
     
         )

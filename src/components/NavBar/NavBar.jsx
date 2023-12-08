@@ -43,10 +43,10 @@ const Navbar = () => {
     <div className="mainNav">
       <div className="welcome">
         <div className="welcomeUsername">
-          <h1>Hi, {decodedHeader.username},</h1>
+          <p>Hi, {decodedHeader.username},</p>
         </div>
         <div className="welcomeBack">
-          <h2>Welcome Back!</h2>
+          <p>Welcome Back!</p>
         </div>
       </div>
 
