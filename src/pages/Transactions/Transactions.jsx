@@ -2,23 +2,30 @@ import React, { useEffect, useState } from "react";
 import "./Transactions.css";
 import addIcon from "../../images/add-icon.png";
 import { Pie } from "react-chartjs-2";
-import 'chart.js/auto';
+import "chart.js/auto";
+import chroma from "chroma-js";
+import editImage from "../Users/edit.png";
+import deleteImage from "../Users/delete.png";
 
 import TransactionsPagination from "./Paginagion";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
+import { Button } from "react-bootstrap";
 
 export default function Transactions() {
-  const [selectedButton, setSelectedButton] = useState(1);
+  const [selectedButton, setSelectedButton] = useState(3);
   const [balance, setBalance] = useState(0);
   const [incomes, setIncomes] = useState(0);
   const [expenses, setExpenses] = useState(0);
   const [showForm, setShowForm] = useState(false);
   const [showForm2, setShowForm2] = useState(false);
+  const [showForm3, setShowForm3] = useState(false);
+  const[updateTransaction,setUpdateTransaction]=useState("");
 
   const [transactions, setTransactions] = useState([]);
   const [categories, setCategories] = useState([]);
 
+  const [selectedchart, setSelectedChart] = useState("expenses");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 7;
 
@@ -30,7 +37,14 @@ export default function Transactions() {
   const [amountExpense, setAmountExpense] = useState("");
   const [descriptionExpense, setDescriptionExpense] = useState("");
 
+
+  const [categoriesExpenseUpdate, setCategoriesExpenseUpdate] = useState("");
+  const [amountExpenseUpdate, setAmountExpenseUpdate] = useState("");
+  const [descriptionExpenseUpdate, setDescriptionExpenseUpdate] = useState("");
+
   const [userID, setUserID] = useState("");
+  const [AllCategoriesIncomes, setAllCategoriesIncomes] = useState([]);
+  const [AllCategoriesExpenses, setAllCategoriesExpenses] = useState([]);
 
   const totalTransactions = transactions.length;
   const totalPages = Math.ceil(totalTransactions / itemsPerPage);
@@ -45,11 +59,102 @@ export default function Transactions() {
   );
 
   const fetchTransactions = async () => {
+    const currentDate = new Date();
+    const sevenDaysAgo = new Date(currentDate);
+    const monthDaysAgo = new Date(currentDate);
+    const yearDaysAgo = new Date(currentDate);
+
+    sevenDaysAgo.setDate(currentDate.getDate() - 7);
+    monthDaysAgo.setDate(currentDate.getDate() - 30);
+    yearDaysAgo.setDate(currentDate.getDate() - 365);
+
     const response = await axios.get(
       "http://localhost:4000/api/transactions/transaction",
       { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
     );
-    setTransactions(response.data);
+
+    let filteredTransactions = [];
+
+    if (selectedButton === 1) {
+      filteredTransactions = response.data.filter((transaction) => {
+        const transactionDate = new Date(transaction.data);
+        return (
+          transactionDate >= sevenDaysAgo && transactionDate <= currentDate
+        );
+      });
+    } else if (selectedButton === 2) {
+      filteredTransactions = response.data.filter((transaction) => {
+        const transactionDate = new Date(transaction.data);
+        return (
+          transactionDate >= monthDaysAgo && transactionDate <= currentDate
+        );
+      });
+    } else {
+      filteredTransactions = response.data.filter((transaction) => {
+        const transactionDate = new Date(transaction.data);
+        return transactionDate >= yearDaysAgo && transactionDate <= currentDate;
+      });
+    }
+
+    setTransactions(filteredTransactions);
+  };
+
+  const getAllCategoriesIncomes = () => {
+    const uniqueCategories = [
+      ...new Set(
+        transactions.map((transaction) => {
+          if (transaction.transaction_type) transaction.category.name;
+        })
+      ),
+    ];
+    setAllCategoriesIncomes(uniqueCategories);
+  };
+
+  const getAllCategoriesExpense = () => {
+    const uniqueCategories = [
+      ...new Set(
+        transactions.map((transaction) => {
+          if (!transaction.transaction_type) transaction.category.name;
+        })
+      ),
+    ];
+    setAllCategoriesExpenses(uniqueCategories);
+  };
+
+  const DeleteIncome = async (transactionId) => {
+    const userConfirmed = window.confirm(
+      "Are you sure you want to delete this transaction?"
+    );
+
+    if (!userConfirmed) {
+      return;
+    }
+
+    try {
+      const response = await axios.delete(
+        `http://localhost:4000/api/transactions/transaction/${transactionId}`,
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
+
+      alert("Transaction has been deleted");
+
+      setTransactions((prevTransactions) =>
+        prevTransactions.filter(
+          (transaction) => transaction.id !== transactionId
+        )
+      );
+
+      return response;
+    } catch (error) {
+      console.error("Error deleting income:", error);
+      return null;
+    }
+  };
+
+  const generateColorScale = (numCategories) => {
+    return chroma.scale(["#421C5F", "#ffff"]).colors(numCategories);
   };
 
   const fetchCategories = async () => {
@@ -82,6 +187,27 @@ export default function Transactions() {
 
   const hideFormHandler2 = () => {
     setShowForm2(false);
+  };
+
+  const showFormHandler3 =async (transactionId) => {
+    setShowForm3(true);
+    setUpdateTransaction(transactionId)
+    const response = await axios.get(
+      `http://localhost:4000/api/transactions/transaction/${transactionId}`,
+      { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+    );
+    setAmountExpenseUpdate(response.data.amount)
+    setCategoriesExpenseUpdate(response.data.category_id)
+    setDescriptionExpenseUpdate(response.data.description)
+
+  };
+
+  const hideFormHandler3 = () => {
+    setShowForm3(false);
+    setUpdateTransaction("")
+    setAmountExpenseUpdate("")
+    setDescriptionExpenseUpdate("")
+    setCategoriesExpenseUpdate("")
   };
 
   const addIncomesHandler = async () => {
@@ -280,23 +406,167 @@ export default function Transactions() {
     setExpenses(sum);
   };
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    const decoded = jwtDecode(token);
-    setUserID(decoded.id);
+  const editExpensesHandler = async () => {
+    const userConfirmed = window.confirm(
+      "Are you sure you want to update this transaction?"
+    );
+  
+    if (!userConfirmed) {
+      return;
+    }
+  
+    try {
+      const response = await axios.patch(
+        `http://localhost:4000/api/transactions/transaction/${updateTransaction}`,
+        {
+          amount: amountExpenseUpdate,
+          description: descriptionExpenseUpdate,
+          category_id: categoriesExpenseUpdate,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+  
+      alert("Transaction has been updated successfully");
+  
+      fetchTransactions()
+      setShowForm3(false)
+  
+      return response;
+    } catch (error) {
+      console.error("Error updating expense:", error);
+      return null;
+    }
+  };
+  
 
+
+
+
+
+   
+  useEffect(() => {
+    try {
+      const token = localStorage.getItem("token");
+      const decoded = jwtDecode(token);
+      setUserID(decoded.id);
+    } catch (error) {
+      console.log(error);
+    }
     fetchCompanies();
     calculateIncomes();
     fetchCategories();
     fetchTransactions();
   }, []);
+  useEffect(() => {
+    fetchTransactions();
+  }, [selectedButton]);
 
   useEffect(() => {
     calculateIncomes();
     calculateExpenses();
     fetchCompanies();
+    getAllCategoriesIncomes();
+    getAllCategoriesExpense();
   }, [transactions, selectedButton]);
-  console.log(categoriesIncome);
+
+  useEffect(() => {
+    const numCategoriesIncomes = setTimeout(() => {}, "1ms");
+    AllCategoriesIncomes.length;
+
+    const colors = generateColorScale(numCategoriesIncomes);
+    let filterTransactions = [];
+    transactions.forEach((transaction) => {
+      if (transaction.transaction_type) {
+        filterTransactions.push(transaction);
+      }
+    });
+
+    const categoryCounts = filterTransactions.reduce((counts, transaction) => {
+      const category = transaction.category.name;
+
+      counts[category] = (counts[category] || 0) + 1;
+
+      return counts;
+    }, {});
+    const newData = {
+      labels: Object.keys(categoryCounts),
+      datasets: [
+        {
+          label: "categories",
+          data: Object.values(categoryCounts),
+          backgroundColor: colors,
+          borderColor: "white",
+        },
+      ],
+    };
+    console.log(categoryCounts);
+
+    setChartData(newData);
+  }, [AllCategoriesIncomes]);
+
+  const [chartData, setChartData] = useState({
+    labels: [],
+    datasets: [
+      {
+        label: "categories",
+        data: [],
+        backgroundColor: [],
+        borderColor: "white",
+      },
+    ],
+  });
+
+  useEffect(() => {
+    const numCategories = setTimeout(() => {}, "1ms");
+    AllCategoriesExpenses.length;
+
+    const colors = generateColorScale(numCategories);
+    let filterTransactions = [];
+    transactions.forEach((transaction) => {
+      if (transaction.transaction_type == 0) {
+        filterTransactions.push(transaction);
+      }
+    });
+
+    const categoryCounts = filterTransactions.reduce((counts, transaction) => {
+      const category = transaction.category.name;
+
+      counts[category] = (counts[category] || 0) + 1;
+
+      return counts;
+    }, {});
+    const newDataExpense = {
+      labels: Object.keys(categoryCounts),
+      datasets: [
+        {
+          label: "categories",
+          data: Object.values(categoryCounts),
+          backgroundColor: colors,
+          borderColor: "white",
+        },
+      ],
+    };
+    console.log(categoryCounts);
+
+    setChartDataExpense(newDataExpense);
+  }, [AllCategoriesExpenses]);
+
+  const [chartDataExpense, setChartDataExpense] = useState({
+    labels: [],
+    datasets: [
+      {
+        label: "categories",
+        data: [],
+        backgroundColor: [],
+        borderColor: "white",
+      },
+    ],
+  });
 
   return (
     <>
@@ -325,6 +595,7 @@ export default function Transactions() {
         >
           Year
         </button>
+        {/* <Button className="add-categories">Add new Transaction Categories </Button> */}
       </div>
       <div className="first-line-transaction">
         <div className="myBalecence-transaction">
@@ -379,27 +650,27 @@ export default function Transactions() {
             <p className="chart-description">
               Incomes and expenses by categories
             </p>
-            <select>
-              <option>Expenses</option>
-              <option>Incomes</option>
+            <select onChange={(event) => setSelectedChart(event.target.value)}>
+              <option value="expenses">Expenses</option>
+              <option value="incomes">Incomes</option>
             </select>
           </div>
-          <Pie
-            data={{
-              labels: ["Food", "Rent", "Marketing", "Salary"],
-              datasets: [
-                {
-                  label: "categories",
-                  data: [200, 300, 1300, 200],
-                  backgroundColor: ["#421C5F", "#B293D8", "#D694EE"],
-                  borderColor: "white",
-                },
-              ],
-            }}
-            options={{
-              responsive: true,
-            }}
-          />
+
+          {selectedchart === "incomes" ? (
+            <Pie
+              data={chartData}
+              options={{
+                responsive: true,
+              }}
+            />
+          ) : (
+            <Pie
+              data={chartDataExpense}
+              options={{
+                responsive: true,
+              }}
+            />
+          )}
         </div>
         <div className="Report-Recent-Transactions transaction-table">
           <p className="Report-Recent-Transactions-Header">
@@ -415,6 +686,7 @@ export default function Transactions() {
                 <th>Type</th>
                 <th>Date</th>
                 <th>Amount</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -423,21 +695,31 @@ export default function Transactions() {
                   key={transaction.id}
                   className="Report-Recent-Transactions-Table-Row"
                 >
-                  <td>{transaction.category.name}</td>
+                  <td width={"auto"}>{transaction.category.name}</td>
                   <td>{transaction.transaction_type ? "Income" : "Expense"}</td>
-                  <td>{transaction.data}</td>
+
+                  <td width={"200px"}>{transaction.data}</td>
                   <td>${transaction.amount}</td>
+                  <td>
+                    <img
+                      src={deleteImage}
+                      onClick={() => DeleteIncome(transaction.id)}
+                    />
+                    <img
+                      src={editImage}
+                      onClick={() => showFormHandler3(transaction.id)}
+                    />
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
           <TransactionsPagination
-  currentPage={currentPage}
-  totalPages={totalPages}
-  onPageChange={handlePageChange}
-  className="pagination-transactions" // Add your desired class name here
-/>
-
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+            className="pagination-transactions"
+          />
         </div>
       </div>
       {showForm && (
@@ -501,6 +783,40 @@ export default function Transactions() {
 
           <button onClick={hideFormHandler2}>Cancel</button>
           <button onClick={addExpensesHandler}>Add</button>
+        </div>
+      )}
+
+{showForm3 && (
+        <div className="expense-income-form">
+          <p className="title">
+            <strong>Edit this transaction</strong>
+          </p>
+          <select
+            onChange={(event) => setCategoriesExpenseUpdate(event.target.value)}
+            value={categoriesExpenseUpdate}
+          >
+            {categories.map((category) => (
+              <option value={category.id} key={category.id}>
+                {category.name}
+              </option>
+            ))}
+          </select>
+
+          <input
+            type="number"
+            placeholder="Amount"
+            onChange={(event) => setAmountExpenseUpdate(event.target.value)}
+            value={amountExpenseUpdate}
+          />
+          <input
+            type="text"
+            placeholder="Description"
+            onChange={(event) => setDescriptionExpenseUpdate(event.target.value)}
+            value={descriptionExpenseUpdate}
+          />
+
+          <button onClick={hideFormHandler3}>Cancel</button>
+          <button onClick={editExpensesHandler}>Update</button>
         </div>
       )}
     </>

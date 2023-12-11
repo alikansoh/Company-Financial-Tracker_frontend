@@ -2,6 +2,8 @@
   display: flex !important;
   justify-content: center !important;
   margin-top: 5% !important;
+  margin-left: -15%;
+
 }
 
 .button-container-transaction :first-child {
@@ -9,7 +11,7 @@
   border-bottom-left-radius: 10px !important;
 }
 
-.button-container-transaction :last-child {
+.button-container-transaction :nth-child(3){
   border-top-right-radius: 10px !important;
   border-bottom-right-radius: 10px !important;
 }
@@ -64,7 +66,7 @@ button.selected-transaction {
 }
 
 .incomes-transaction {
-  width: 409px !important;
+  width: 475px !important;
   height: 241px !important;
 
   background: linear-gradient(
@@ -79,7 +81,7 @@ button.selected-transaction {
 }
 
 .expenses-transaction {
-  width: 409px !important;
+  width: 475px !important;
   height: 241px !important;
 
   background: linear-gradient(
@@ -172,9 +174,10 @@ button.selected-transaction {
 }
 
 .transaction-table {
-  width: 890px !important;
+  width: 1000px !important;
   margin-left: 50px !important;
 }
+
 
 .transaction-table-table {
   width: 100% !important;
@@ -184,7 +187,7 @@ button.selected-transaction {
 .pagination {
   position: absolute !important;
   bottom: 0 !important;
-  left: 65% !important;
+  left: 67% !important;
   transform: translateX(-50%) !important;
   padding-bottom: 0px !important;
 }
@@ -241,4 +244,9 @@ button.selected-transaction {
 
 .expense-income-form .title {
   margin-left: 40% !important;
+}
+.add-categories{
+  margin-left: 300px;
+  background-color: #421C5F;
+  width: 150px;
 }
