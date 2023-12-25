@@ -17,59 +17,64 @@ const SideBar = () => {
 
   return (
     <div className='main'>
-      <img className="sidebar-logo" src={logo} alt="" />
-      <div className="sidebar">
-        <div className="sidebar-buttons">
-          <Link
-            to={"/"}
-            onClick={() => handleLinkClick(0)}
-            className={selectedLink === 0 ? 'selected' : ''}
-          >
-            <h3 className="dashboard">
-            <img className="icon" src={iconD} alt="" />
-              <span className='dash'>|</span><span className='sidebar-label'>Dashboard</span>
-            </h3>
-          </Link>
-          <Link
-            to={"/Transactions"}
-            onClick={() => handleLinkClick(1)}
-            className={selectedLink === 1 ? 'selected' : ''}
-          >
-            <h3 className="transactions">
-            <img className="icon" src={iconT} alt="" />
-              <span className='dash'>|</span><span className='sidebar-label'>Transactions</span>
-            </h3>
-          </Link>
-          <Link
-            to={"/Goals"}
-            onClick={() => handleLinkClick(2)}
-            className={selectedLink === 2 ? 'selected' : ''}
-          >
-            <h3 className="Goals">
-            <img className="icon" src={iconG} alt="" />
-              <span className='dash'>|</span><span className='sidebar-label'>Goals</span>
-            </h3>
-          </Link>
-          <Link
-            to={"/Reports"}
-            onClick={() => handleLinkClick(3)}
-            className={selectedLink === 3 ? 'selected' : ''}
-          >
-            <h3 className="Reports">
-            <img className="icon" src={iconR} alt="" />
-              <span className='dash'>|</span><span className='sidebar-label'>Reports</span>
-            </h3>
-          </Link>
-          <Link
-            to={"/Users"}
-            onClick={() => handleLinkClick(4)}
-            className={selectedLink === 4 ? 'selected' : ''}
-          >
-            <h3 className="Users">
-            <img className="icon" src={iconU} alt="" />
-              <span className='dash'>|</span> <span className='sidebar-label'>Users</span>
-            </h3>
-          </Link>
+    <img className="sidebar-logo" src={logo} alt="" />
+    <div className="sidebar">
+      <div className="sidebar-buttons">
+        <Link
+          to={"/Dashboard"}
+          onClick={() => handleLinkClick(0)}
+          className={selectedLink === 0 ? 'selected' : ''}
+        >
+          <div className="dashboard">
+          <span className='dash'>|</span>
+            <img className="icon" src={iconD} alt="" />&nbsp;&nbsp;&nbsp;
+            <span className='sidebar-label'>Dashboard</span>
+          </div>
+        </Link>
+        <Link
+          to={"/Transactions"}
+          onClick={() => handleLinkClick(1)}
+          className={selectedLink === 1 ? 'selected' : ''}
+        >
+          <div className="Transactions">
+          <span className='dash'>|</span>
+            <img className="icon" src={iconT} alt="" />&nbsp;&nbsp;&nbsp;
+            <span className='sidebar-label'>Transactions</span>
+          </div>
+        </Link>
+        <Link
+          to={"/Goals"}
+          onClick={() => handleLinkClick(2)}
+          className={selectedLink === 2 ? 'selected' : ''}
+        >
+          <div className="Goals">
+          <span className='dash'>|</span>
+            <img className="icon" src={iconG} alt="" />&nbsp;&nbsp;&nbsp;
+            <span className='sidebar-label'>Goals</span>
+          </div>
+        </Link>
+        <Link
+          to={"/Reports"}
+          onClick={() => handleLinkClick(3)}
+          className={selectedLink === 3 ? 'selected' : ''}
+        >
+          <div className="Reports">
+          <span className='dash'>|</span>
+            <img className="icon" src={iconR} alt="" />&nbsp;&nbsp;&nbsp;
+            <span className='sidebar-label'>Reports</span>
+          </div>
+        </Link>
+        <Link
+          to={"/Users"}
+          onClick={() => handleLinkClick(4)}
+          className={selectedLink === 4 ? 'selected' : ''}
+        >
+          <div className="Users">
+          <span className='dash'>|</span>
+            <img className="icon" src={iconU} alt="" />&nbsp;&nbsp;&nbsp;
+            <span className='sidebar-label'>Users</span>
+          </div>
+        </Link>
         </div>
       </div>
     </div>

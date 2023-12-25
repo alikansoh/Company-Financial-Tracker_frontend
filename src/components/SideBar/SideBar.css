@@ -2,13 +2,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&family=Josefin+Slab:ital,wght@0,400;1,300&display=swap');
 .sidebar{
     background-color:#421C5F;
-    width: fit-content;
-    height: 740px;
+    width: 270px;
+    height: 773px;
     border-radius: 0 20px 20px 0;
     display: flex;
     flex-direction: column;
     font-family: 'Inter', sans-serif;
-    margin-left: -8px;
 }
 .sidebar a {
     text-decoration: none;
@@ -16,43 +15,35 @@
     display: flex;
     padding: 30px;
     cursor: pointer;
-    margin-left: 30px;
-    font-size: 17px;
+    font-size: 23px;
 }
-.sidebar a .dash {
+.dash {
     font-weight: bold;
     font-size: 40px;
     display: none;
-    transform: translateX(-680%);
 }
-.sidebar a .icon{
-    transform: translateX(-40%);
-    width: 39px;
+.sidebar a.selected .dash{ 
+    display:inline;
+    margin-inline-start: -34px;
 }
-.sidebar a:hover .dash,
-.sidebar a.selected .dash { 
-    display:flex;
-}
-h3 {
-    display: flex;
-    align-items: center;
-    font-weight: 100;
+@media screen and (min-width: 50px) and (max-width: 1080px) {
+    .sidebar {
+      width: 240px; /* Adjust the width for the collapsed sidebar */
+      height: 100vh;
+    }
+  
+    .sidebar a {
+      padding: 15px; /* Adjust the padding for the links */
+    }
+  
+    .selected {
+      display: flex;
+      margin-inline-start: -20px;
+    }
+  
+    .sidebar a.selected .dash {
+      margin-inline-start: 0; 
+      /* Reset margin for selected link */
+    }
+  }
 
-}
-.sidebar-buttons{
-    margin-top: 30px;
-}
-.sidebar-logo{    
-    margin-left: -30px;
-}
-@media only screen and (max-width: 1080px) {
-    .sidebar{
-        display: flex;
-        width: fit-content;
-        height: fit-content;
-    } 
-    .sidebar-logo{
-        margin-left: -40px;
-    }  
-    
-}

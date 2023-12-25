@@ -9,16 +9,13 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Delete from '../Users/delete.png';
 import edit from '../Users/edit.png';
-import calendar from '../Goals/calendar.png'
+import calendar from '../Goals/calendar.png'// two dots is going back // one dot in the same page
 import GoalsPagination from '../Transactions/Paginagion';
 
 
 
-//importing libraries
-
-
 export default function Goals() {
-  //intializing useStates
+
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [goalToDelete, setGoalToDelete] = useState(null);
   const [goalData, setGoalData] = useState([]);
@@ -35,7 +32,6 @@ export default function Goals() {
   const [goalToUpdate, setGoalToUpdate] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [refreshPage, setRefreshPage] = useState(false);
-  //intializing useStates
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -56,7 +52,7 @@ export default function Goals() {
     return
   }
   //posting goal
-  const addGoal = async (e) => {
+const addGoal = async (e) => {
     e.preventDefault();
     try {
       console.log('State Values:', { name, target, startDate, endDate, type });
@@ -137,14 +133,13 @@ export default function Goals() {
       if (response.status === 200) {
         // Assuming response.data contains the updated goal
         const updatedGoal = response.data;
-
         // Update the existing goal in the array
         setGoalData((prevGoals) =>
           prevGoals.map((goal) =>
             goal.id === updatedGoal.id ? updatedGoal : goal
           )
         );
-
+        
         setName('');
         setTarget(0);
         setStartDate('');
@@ -262,7 +257,7 @@ export default function Goals() {
       <h2>{goal.name}</h2>
       <ul className='goals-ul'>
         <li className='goals-li'>{goal.target}</li>
-        <div className='goal-img'><img className= 'delete'src={Delete} alt=''  onClick={() => handleDeleteClick(goal.id)}/><br/>
+        <div className='goal-img'><img className= 'delete'src={Delete} alt=''  onClick={() => handleDeleteClick(goal.id)}/>
         <img className='edit'src={edit} alt='' onClick={() => handleUpdateClick(goal.id)} /></div>
         <span className='goals-span'>{goal.startDate}</span>&nbsp;&nbsp;<img src={calendar} alt='' />&nbsp;&nbsp;<span className='goals-span'>{goal.endDate}</span>
       </ul>
@@ -275,12 +270,13 @@ export default function Goals() {
     </div>
   );
 
-  return (	    
-        <div><div className='goal-title'>Goals</div>
+  return (	    <div className='whole'>
+      <div className='goal-first-line'><div className='goal-title'>Goals</div>
         <div className="Add-Goal">
-        <Button className="goal-button" variant="primary" onClick={handleShowModal}>
+          <Button className="goal-button" variant="primary" onClick={handleShowModal}>
           Add Goal
-        </Button>
+          </Button>
+        </div>
       </div>
       <div className="goal-container">
       <div className="goal-row">
@@ -293,7 +289,7 @@ export default function Goals() {
         />
         ))}
         
-      </div>
+    </div>
     </div>
       
 

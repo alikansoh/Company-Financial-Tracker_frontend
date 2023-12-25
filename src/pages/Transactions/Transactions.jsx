@@ -435,7 +435,7 @@ export default function Transactions() {
   currentPage={currentPage}
   totalPages={totalPages}
   onPageChange={handlePageChange}
-  className="pagination-transactions" // Add your desired class name here
+  className="pagination-transactions" 
 />
 
         </div>

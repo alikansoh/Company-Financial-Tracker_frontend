@@ -6,10 +6,14 @@
 .welcomeUsername{
 color: #421c5f;
 font-size: 40px;
+margin-top: 10%;
+margin-left:5%;
 }
 .welcomeBack{
 color: #9B9898;
 font-size: 30px;
+margin-left: 5%;
+
 
 }
 .profile{
@@ -19,6 +23,7 @@ font-size: 30px;
 .bi-bell-fill{
    font-size: 40px;
    color: #421c5f;
+   display: flex;
 }
 .bi-person-circle{
     font-size: 50px;
@@ -35,18 +40,14 @@ font-size: 30px;
     background-color:transparent;
 }
 .dropdown-list{
-    /* border: none; */
+    border: none;
     font-size: 30px;
     font-weight: bold;
-
-
 }
 .option1{
     color: #421c5f;
 }
-.option2{
-    color: #421c5f;
-}
+
 .option3{
     color: #421c5f;
 }   
@@ -77,10 +78,10 @@ font-size: 30px;
 
 
 
-.bi-caret-down-fill:hover{
+.bi-caret-down-fill:hover
+{
     transition: color 0.3s ease;
     color:#8448ce;
-    border-radius: 0; 
 }
 
 
@@ -88,11 +89,6 @@ font-size: 30px;
     transition: color 0.3s ease;
     color: #8448ce;
 
-}
-
-.option2:hover{
-    transition: color 0.3s ease;
-    color: #8448ce;
 }
 .option3:hover{ 
     transition: color 0.3s ease;

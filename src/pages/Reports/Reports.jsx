@@ -186,10 +186,6 @@ export default function ReportComponent() {
     },
   }}
 />
-
-
-
-
           </div>
           <div className="Report-Recent-Transactions transaction-table">
           <p className="Report-Recent-Transactions-Header">
@@ -199,7 +195,7 @@ export default function ReportComponent() {
             Check the last transactions in your account
           </p>
           <table className="Report-Recent-Transactions-Table transaction-table-table">
-            <thead>
+            <thead className='report-transaction-head'>
               <tr className="Report-Recent-Transactions-Table-Header">
                 <th>Category</th>
                 <th>Type</th>

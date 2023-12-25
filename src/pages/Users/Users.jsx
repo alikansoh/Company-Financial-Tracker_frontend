@@ -3,8 +3,6 @@ import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import '../Users/Users.css';
-import prev from '../Users/prev.png';
-import next from '../Users/next.png';
 import edit from '../Users/edit.png';
 import Delete from '../Users/delete.png';
 import profile from '../Users/profile.png';
@@ -85,10 +83,6 @@ const handleConfirmDelete = async () => {
   }
 };
 //handeling the delete function
-
-
-
-
 const updateUser = async (e) => {
   e.preventDefault();
 

@@ -58,16 +58,13 @@ const Navbar = () => {
         <div className="profileName">
           <h1>{decodedHeader.username}</h1>
         </div>
-        <div className="dropdown">
           <button className="bi bi-caret-down-fill" onClick={handleDropdownToggle}></button>
           {isDropdownOpen && (
             <ul className="dropdown-list">
               <li className="option1" onClick={() => handleDropdownItemClick('Profile')}>Profile</li>
-              <li className="option2" onClick={() => handleDropdownItemClick('Settings')}>Settings</li>
               <li className="option3" onClick={() => handleDropdownItemClick('Logout')}>Logout</li>
             </ul>
           )}
-        </div>
       </div>
     </div>
   );
