@@ -1,0 +1,36 @@
+/* RingChart.css */
+
+.ring-chart-container {
+  position: relative;
+  width: 110px;
+  height: 110px;
+}
+
+.ring-chart {
+  width: 90%;
+  height: 90%;
+}
+
+.ring-chart-text {
+  position: absolute;
+  top: 45%; /* Adjust this value to move the text further up or down */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 1; /* Ensure the text is above the chart */
+}
+
+.ring-chart-text-percentage {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.ring-chart-text-label {
+  font-size: 8px;
+  color: #666;
+}
+
+/* Hide scale labels */
+.ring-chart-container .chartjs-size-monitor {
+display: block;
+}

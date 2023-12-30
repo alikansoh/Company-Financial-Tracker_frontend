@@ -26,7 +26,7 @@ const App = () => {
     useEffect(() => {
       const authToken = localStorage.getItem("token");
       if (!authToken) {
-        navigate("/Forbidden");
+        navigate("/forbidden ");
       }
     }, [navigate]);
 
@@ -66,7 +66,12 @@ const App = () => {
           />
           <Route path="/Dashboard" element={<Dashboard />} />
           <Route path="/Reports" element={<Reports />} />
-          <Route path="/Users" element={<Users />} />
+          <Route
+            path="/users"
+            element={
+              <ProtectedRoute element={<Users />} role="admin" />
+            }
+          />
         </Route>
       </Routes>
     </Router>

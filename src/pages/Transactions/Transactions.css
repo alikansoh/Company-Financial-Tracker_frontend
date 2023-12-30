@@ -1,8 +1,6 @@
 .button-container-transaction {
   display: flex !important;
   justify-content: center !important;
-  margin-top: 5% !important;
-  margin-left: -15%;
 
 }
 
@@ -186,7 +184,7 @@ button.selected-transaction {
 
 .pagination {
   position: absolute !important;
-  bottom: 0 !important;
+  bottom: -110px !important;
   left: 67% !important;
   transform: translateX(-50%) !important;
   padding-bottom: 0px !important;

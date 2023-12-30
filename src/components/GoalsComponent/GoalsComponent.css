@@ -1,0 +1,53 @@
+.goalComponentMain {
+  position: relative;
+  border-radius: 25px;
+  background-color: transparent;
+  display: flex;
+}
+
+.goalPartOne {
+  background-color: transparent;
+  width: 50%;
+}
+
+.goalNameAndImage {
+  display: flex;
+  color: black;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+}
+.goalName{
+  font-size: 24px;
+  font-weight: 540;
+}
+
+.goalDate {
+  display: flex;
+  color: #8c8c8c;
+  justify-content: center;
+}
+
+/* 
+.goalPartTwo{
+    background-color: blueviolet;
+
+} */
+
+
+.goalPartTwoOptionComplete {
+  color: rgba(28, 78, 10, 0.7);
+  background-color: transparent;
+  width: 50%;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+.goalPartTwoOptionUnComplete {
+  color: #8c8c8c;
+  background-color: transparent;
+  width: 50%;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}

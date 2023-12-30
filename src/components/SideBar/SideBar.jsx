@@ -37,7 +37,7 @@ const SideBar = () => {
       <div className="sidebar">
         <div className="sidebar-buttons">
           <Link
-            to={"/"}
+            to={"/Dashboard"}
             onClick={() => handleLinkClick(0)}
             className={selectedLink === 0 ? "selected" : ""}
           >
