@@ -9,7 +9,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Delete from '../Users/delete.png';
 import edit from '../Users/edit.png';
-import calendar from '../Goals/calendar.png'// two dots is going back // one dot in the same page
+import calendar from '../Goals/calendar.png'
 import GoalsPagination from '../Transactions/Paginagion';
 
 
@@ -32,6 +32,7 @@ export default function Goals() {
   const [goalToUpdate, setGoalToUpdate] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [refreshPage, setRefreshPage] = useState(false);
+  //intializing useStates
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);

@@ -7,9 +7,10 @@
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
 }
-.button-container-transaction :last-child {
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
+
+.button-container-transaction :nth-child(3){
+  border-top-right-radius: 10px !important;
+  border-bottom-right-radius: 10px !important;
 }
 .button-transaction {
   background-color: #d9d9d9;
@@ -55,8 +56,8 @@ button.selected-transaction {
   color: #ea4f1b ;
 }
 .incomes-transaction {
-  width: 409px ;
-  height: 241px ;
+  width: 409px !important;
+  height: 241px !important;
 
   background: linear-gradient(
     180deg,
@@ -69,7 +70,7 @@ button.selected-transaction {
   border-radius: 25px ;
 }
 .expenses-transaction {
-  width: 409px !important;
+  width: 475px !important;
   height: 241px !important;
 
   background: linear-gradient(
@@ -147,14 +148,25 @@ button.selected-transaction {
   display: flex ;
 }
 .Report-Recent-Transactions-SubHeader {
-  margin-top: 25px;
+  margin-top: 25px !important;
 }
+
+.transaction-table {
+  width: 890px !important;
+  margin-left: 50px !important;
+}
+
+.transaction-table-table {
+  width: 100% !important;
+  margin-left: 0px !important;
+}
+
 .pagination {
-  position: absolute;
-  bottom: 0 ;
-  left: 65% ;
-  transform: translateX(-50%) ;
-  padding-bottom: 0px ;
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 65% !important;
+  transform: translateX(-50%) !important;
+  padding-bottom: 0px !important;
 }
 .page-link {
   color: white ;
@@ -197,8 +209,10 @@ button.selected-transaction {
   background-color: #633785 ;
 }
 .expense-income-form .title {
-  margin-left: 40% ;
+  margin-left: 40% !important;
 }
-.Report-Recent-Transactions transaction-table{
-  height: 100%;
+.add-categories{
+  margin-left: 300px;
+  background-color: #421C5F;
+  width: 150px;
 }

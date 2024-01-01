@@ -1,0 +1,27 @@
+.financeStateComponent {
+  width: 100%;
+  padding: 0 8px;
+  display: flex;
+  justify-items: center;
+  justify-content: space-between;
+  align-self: center;
+}
+.textAndMoney {
+  display: grid;
+}
+.financeTitleText {
+  color: #561b54;
+}
+.textMy {
+  color: #561b54;
+}
+.textIncomesColor {
+  color: #2b4f22;
+}
+.textExpensesColor {
+  color: #ea4f1b;
+}
+
+.financeRing {
+  align-self: center;
+}

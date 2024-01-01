@@ -9,7 +9,7 @@
 .Report-Header{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    gap:1%;
 }
 .Report-Header-Title{
     font-family: 'Donegal One', sans-serif;
@@ -26,12 +26,13 @@
 .Report-Header-Box{
     display: flex;
     flex-direction: column;
-    width: 19%;
+    width:15.5%;
     height: 143px;
-    /* margin-left: 20px; */
     background-color: #D0BDE7;
     align-items: center;
+    text-align: center;
     border-radius: 10px;
+    gap:0;
 }
 .date-input-container {
     margin-top: 1%;
@@ -76,13 +77,12 @@
 }
 .Report-Recent-Transactions{
     background-color: #DABEF5;
-    width: 49%;
-    height: 538px;
+    width: 40%;
+    height: fit-content;
     border-radius: 23px;
     margin-top: 15px;
 }
 .Report-Recent-Transactions-Header{
-    padding-left: 15px;
     font-family: 'Sofia Sans', sans-serif;
     font-weight: bold;
     font-size: 25px;
@@ -97,7 +97,7 @@
     font-family: 'Sofia Sans', sans-serif;
     border-collapse: collapse;
     border-radius: 30px;
-    width: 700px;
+    width: 20%;
     height: 60px;
     text-align: center;
     font-size: 30px; 
@@ -108,7 +108,7 @@
     border-radius: 15px;
 }
 .Report-Chart{
-    width: 50%;
+    width: 45%;
     display: flex;
     margin-top: auto;
     margin-bottom: auto;

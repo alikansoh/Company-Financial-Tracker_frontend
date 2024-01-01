@@ -1,14 +1,15 @@
 
     .calendar {
     display: flex;
-    background-color: #442a5ed5;
+    background-color: #421c5f;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
     color: white;
     border-radius: 10px;
-    width: 360px; 
+    width: 400px; 
     height: 50px; 
     justify-content: space-evenly;
+    /* align-items: center; */
     margin: auto;
 }  
    .calendar:hover {

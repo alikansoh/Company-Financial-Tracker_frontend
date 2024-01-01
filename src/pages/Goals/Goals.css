@@ -54,7 +54,7 @@
  /* justify-content: center; */
 }
 .pagination-transactions{
-  display: relative;
+  display: flex;
 
 }
 .Add-Goal{

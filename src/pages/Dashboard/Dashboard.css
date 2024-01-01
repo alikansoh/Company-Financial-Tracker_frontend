@@ -1,56 +1,128 @@
-.mainDashboard{
-    width: 100%;
-    height: 100vh;
-    background-color: black;
-
+.mainDashboard {
+  display: flex;
+  width: 100%;
+  height: 80vh;
 }
 
-.mainFeatures{
-    width: 70%;
-    background-color: darkblue ;
+.mainFeatures {
+  width: 70%;
+  height: 100%;
+  background-color: white;
 }
 
-.functionsMain{
-    height: 15vh;
-    background-color:  violet;
-
+.functionsMain {
+  display: flex;
+  gap: 30px;
+  height: 25%;
+  background-color: white;
+  justify-content: center;
+  align-items: center;
 }
 
 .myBalanceFunction {
-    width: 30%;
-    background-color: aqua;
+  position: relative;
+  display: grid;
+  width: 30%;
+  height: 90%;
+  justify-items: center;
+  align-items: start;
+  background: linear-gradient(
+    180deg,
+    rgba(218, 190, 245, 0.46) 12.12%,
+    rgba(178, 147, 216, 0.2806) 46.88%,
+    rgba(145, 182, 216, 0) 110.19%
+  );
+  border-radius: 25px;
 }
 
 .incomeFunction {
-    width: 30%;
-    background-color: aqua;
+  position: relative;
 
+  display: grid;
+  width: 30%;
+  height: 90%;
+  justify-items: center;
+  align-items: center;
+
+  background: linear-gradient(
+    180deg,
+    rgba(86, 174, 95, 0.46) 0%,
+    rgba(84, 184, 82, 0.2806) 31.4%,
+    rgba(139, 214, 113, 0.322) 55.88%,
+    rgba(145, 182, 216, 0) 90.25%,
+    rgba(145, 182, 216, 0) 90.26%
+  );
+  border-radius: 25px;
 }
 
-.expenseFunction{
-    width: 30%;
-    background-color: aqua;
+.expenseFunction {
+  position: relative;
 
+  display: grid;
+  width: 30%;
+  height: 90%;
+  justify-items: center;
+  align-items: center;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 93, 93, 0.46) 6.92%,
+    rgba(215, 120, 120, 0.2806) 32.96%,
+    rgba(241, 182, 186, 0.322) 55.88%,
+    rgba(145, 182, 216, 0) 85.57%
+  );
+  border-radius: 25px;
 }
 
-
-
-
-.graphsMain{
-    height: 45vh;
-    background-color: red;
-
+.graphsMain {
+  height: 50%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.recentUsersMain{
-    height: 25vh;
-    background-color:yellow ;
-
-
+.recentUsersMain {
+  width: 95%;
+  height: 25%;
+  margin: auto;
+  display: grid;
+  color: #561b54;
+  padding-left: 20px;
+  padding-top: 10px;
+  border-radius: 25px;
+  background: linear-gradient(
+    180deg,
+    rgba(218, 190, 245, 0.46) 12.12%,
+    rgba(178, 147, 216, 0.2806) 53.96%,
+    rgba(145, 182, 216, 0) 110.19%
+  );
 }
 
-.mainGoals{
-    width: 30%;
-    background-color: green;
+.recentUsersInfo {
+  margin-left: 50px;
+}
 
+.mainGoals {
+  width: 30%;
+  display: grid;
+  background: linear-gradient(
+    180deg,
+    rgba(218, 190, 245, 0.46) 12.12%,
+    rgba(178, 147, 216, 0.2806) 46.88%,
+    rgba(145, 182, 216, 0) 110.19%
+  );
+  border-radius: 25px;
+  align-content: start;
+
+  gap: 20px;
+  padding-top: 33px;
+  padding-left: 20px;
+  margin-right: 25px;
+  margin-top: 7px;
+}
+
+.mainGoalText {
+  font: 1px;
+  color: #561b54;
+  justify-items: start;
 }
