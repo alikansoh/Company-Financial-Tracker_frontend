@@ -4,6 +4,7 @@ import './Reports.css';
 import axios from 'axios';
 import { Line } from "react-chartjs-2";
 import TransactionsPagination from '../Transactions/Paginagion';
+import TransactionsPagination from '../Transactions/Paginagion';
 
 const ReportHeaderBox = ({ title, subTitle }) => (
   <div className="Report-Header-Box">
